@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock, paper, scissors script</title>
+  </head>
+
+  <body>
+    <script>
+      
+      function getComputerChoice() {
+        // create the possible choices a computer can pick and randomly select one of the choices
+        const choices = ['rock', 'paper', 'scissors'];
+        return choices[Math.floor(Math.random()* choices.length)];
+      }
+
+      function playRound(playerSelection, computerSelection) {
+        // if there's an input from the user, convert it all to lowercase
+        if (playerSelection) {
+          playerSelection = playerSelection.toLowerCase(); 
+        } 
+      }  
+      
+      const playerSelection = prompt('Pick either rock, paper or scissors.');
+      const computerSelection = getComputerChoice();
+      console.log(playRound(playerSelection, computerSelection));
+
+      
+      function game() {
+        playRound();
+        for (let i = 0; i < 5; i++){
+
+        }
+      }
+
+    </script>
+  </body>
+</html>

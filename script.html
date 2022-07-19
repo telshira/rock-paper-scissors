@@ -46,10 +46,6 @@
           return neither = `That's not one of the choices.`;  // if player cancels or type anything other than the choices listed
         }
       }  
-      
-      const playerSelection = prompt('Pick either rock, paper or scissors.');
-      const computerSelection = getComputerChoice();
-      console.log(playRound(playerSelection, computerSelection));
 
       // list the available outcomes
       let win;
@@ -58,11 +54,38 @@
       let neither;
 
       function game() {
-        playRound();
-        for (let i = 0; i < 5; i++){
 
+        // listed variables to count wins, losses, ties
+        let playerWin = 0;
+        let playerLose = 0;
+        let tieCount = 0;
+        let neitherCount = 0;
+
+        for (let i = 0; i < 5; i++) {
+        const playerSelection = prompt('Pick either rock, paper or scissors.');// prompt for player's pick
+        const computerSelection = getComputerChoice();// get computer choice when round starts
+        console.log(playRound(playerSelection, computerSelection));
+        console.log(playerSelection, computerSelection);
+
+          // Add total for each round won, loss, tied or neither. 
+          if (playRound(playerSelection, computerSelection) === win){
+            playerWin++;
+            console.log(playerWin);
+          } else if (playRound(playerSelection, computerSelection) === lose) {
+            playerLose++;
+            console.log(playerLose);
+          } else if (playRound(playerSelection, computerSelection) === tie){
+            tieCount++;
+            console.log(tieCount);
+          } else {
+            neitherCount++;
+            console.log(neitherCount);
+          }
         }
+        console.log(`${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`);
       }
+
+    game();
 
     </script>
   </body>

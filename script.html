@@ -61,7 +61,7 @@
         let tieCount = 0;
         let neitherCount = 0;
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; ) {
         const playerSelection = prompt('Pick either rock, paper or scissors.');// prompt for player's pick
         const computerSelection = getComputerChoice();// get computer choice when round starts
         console.log(playRound(playerSelection, computerSelection));
@@ -70,19 +70,24 @@
           // Add total for each round won, loss, tied or neither. 
           if (playRound(playerSelection, computerSelection) === win){
             playerWin++;
+            i++;  
             console.log(playerWin);
           } else if (playRound(playerSelection, computerSelection) === lose) {
             playerLose++;
+            i++;
             console.log(playerLose);
           } else if (playRound(playerSelection, computerSelection) === tie){
             tieCount++;
+            i++;
             console.log(tieCount);
           } else {
+            i = i; // round doesn't count if nothing is entered or entered the wrong words
             neitherCount++;
             console.log(neitherCount);
           }
         }
         console.log(`${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`);
+        return `${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`;
       }
 
     game();

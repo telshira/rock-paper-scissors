@@ -60,6 +60,9 @@
         let playerLose = 0;
         let tieCount = 0;
         let neitherCount = 0;
+        const computerWins = 'Sorry. You loss. Try again.';
+        const  playerWins = 'Congratulations on beating the computer!';
+        const  playerTies = `It's a tie!`;
 
         for (let i = 0; i < 5; ) {
         const playerSelection = prompt('Pick either rock, paper or scissors.');// prompt for player's pick
@@ -86,8 +89,18 @@
             console.log(neitherCount);
           }
         }
-        console.log(`${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`);
-        return `${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`;
+      console.log(`${playerWin} wins : ${playerLose} losses : ${tieCount} ties : ${neitherCount} not the rigt choice`);
+
+        if (playerWin === playerLose) {
+          console.log(playerTies);
+          return  playerTies;
+        }  else if (playerWin > playerLose) {
+          console.log(playerWins);
+          return  playerWins;
+        } else {
+          console.log(computerWins);
+          return computerWins;
+        }
       }
 
     game();

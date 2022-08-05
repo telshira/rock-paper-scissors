@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="rps.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="main-name-containers" id="player-container">
+         <div class="portrait-container" id="player">
+          <div id="player-name"></div>
+          <div class="portraits" id="player-portrait"></div>
+        </div>
+        <div class="scores-holder" id="player-score">
+          <p></p>
+          <div id='player-points'></div>
+        </div>
+      </div>
+      <img src="paperockscissorstemp.jpg" alt="paper rock scissors icon">
+      <div class="main-name-containers" id="computer-container">
+        <div class="scores-holder" id="computer-score">
+            <p></p>
+            <div id='computer-points'></div>
+        </div>
+        <div class="portrait-container" id="computer">
+          <div id="computer-name"></div>
+          <div class="portraits" id="computer-portrait"></div>
+        </div>
+    </header>
+    <div class="midcontent-container">
+      <div class="player choice-box"></div>
+      <div id="win-or-lose">
+        <input type="text" id="playername" name="playername" placeholder="Enter your name here...">
+        <input type="submit" value="Submit"></button>
+      </div>
+      <div class="computer choice-box"></div>
+    </div>
+    <div class="player-options"> 
+      <div class="image-button" id="rock"></div>
+      <div class="image-button" id="paper"></div>
+      <div class="image-button" id="scissors"></div>
+    </div>
+  </body>
+</html>

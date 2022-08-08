@@ -55,10 +55,8 @@ function createWelcomeBox(){
   introTop.className = 'top';
   introBottom.className = 'bottom'
   startBtn.className = 'start-button';
-  startBtn.style.backgroundColor = 'palevioletred';
-  startBtn.style.color = 'white';
+  startBtn.setAttribute('style', 'background-color: palevioletred; color: white; font-size: large')
   startBtn.textContent = 'Start';
-  startBtn.style.fontSize = 'large';
   welcomeContainer.className = 'welcome-container';
   welcomeName.textContent = `${playerOne.username}`;
   welcomeIntro.append(welcomeName);

@@ -1,9 +1,7 @@
-let submit = document.querySelector('input[type="submit"]');
-let inputs = document.querySelectorAll('input');
-let nameInput = document.querySelector(`input[type='text']`);
-let playerName = document.getElementById('player-name');
-let playerNameContainer = document.getElementById('player-container')
-let messageBox = document.getElementById('message-box');
+const submit = document.querySelector('input[type="submit"]');
+const inputs = document.querySelectorAll('input');
+const nameInput = document.querySelector(`input[type='text']`);
+const messageBox = document.getElementById('message-box');
 
 const playerOne = {username: '', score: 0};
 const playerTwo = {username: 'Computer', score: 0};
@@ -71,6 +69,17 @@ function createWelcomeBox(){
   messageBox.appendChild(welcomeContainer);
 }
 
+const playerCont = document.getElementById('player');
+const playerName = document.getElementById('player-name');
+const playerPort = document.getElementById('player-portrait');
+const playerPts = document.getElementById('player-points');
+const plyrScoreCtnr = document.getElementById('player-score');
+
+const computerCont = document.getElementById('computer');
+const computerName = document.getElementById('computer-name');
+const computerPort = document.getElementById('computer-portrait');
+const computerPts = document.getElementById('computer-points');
+const compScoreCntr= document.getElementById('computer-score');
 
 messageBox.addEventListener('click', createGameUI);
 
@@ -79,6 +88,8 @@ function createGameUI(e){
   if (e.target.classList.contains('start-button')){
     messageBox.remove();
     loadRPS();
+    createPlayerBox();
+    createComputerBox();
   };
 }
 
@@ -94,5 +105,23 @@ function loadRPS(){
 }
 
 function createPlayerBox() {
-  
+  let playerImg = document.createElement('img');
+  playerImg.src = "./Images/playerIcon.jpg";
+  playerImg.setAttribute('style', 'border-radius: 50%; border: 3px solid palevioletred; box-sizing: border-box');
+  playerPort.appendChild(playerImg);
+  playerName.appendChild(document.createTextNode(playerOne.username));
+  playerName.setAttribute('style', 'color: goldenrod; align-items: center; font-family: "Luckiest Guy"; font-size: 1.5vw; padding: 5px 0; marginBottom: 10px');
+  playerCont.appendChild(playerName);
+  playerCont.appendChild(playerPort);
+}
+
+function createComputerBox() {
+  let computerImg = document.createElement('img');
+  computerImg.src = "./Images/computerIcon.jpg";
+  computerImg.setAttribute('style', 'border-radius: 50%; border: 3px solid rgb(8, 206, 241); box-sizing: border-box');
+  computerPort.appendChild(computerImg);
+  computerName.appendChild(document.createTextNode(playerTwo.username));
+  computerName.setAttribute('style', 'color: goldenrod; align-items: center; font-family: "Luckiest Guy"; font-size: 1.5vw; padding: 5px 0; marginBottom: 10px');
+  computerCont.appendChild(computerName);
+  computerCont.appendChild(computerPort);
 }

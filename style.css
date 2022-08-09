@@ -43,15 +43,15 @@ img {
 .portrait-container{
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
   border: 1px solid blue;
   height: auto;
-  width: auto;
+  width: 50%;
 }
 
 .portraits{
   height: auto;
-  width: 100%;
+  width: 70%;
   border: 1px solid blue;
 }
 
@@ -94,6 +94,7 @@ input[type='submit']{
 }
 
 .choice-box {
+  display: flex;
   width: 20%;
   border-radius: 50%;
   border: 1px solid blue;
@@ -116,6 +117,7 @@ input[type='submit']{
   width: 20%;
   border-radius: 50%;
   border: 1px solid blue;
+  height: 80%;
 }
 
 .welcome-container{

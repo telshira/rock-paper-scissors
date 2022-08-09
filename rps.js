@@ -71,3 +71,28 @@ function createWelcomeBox(){
   messageBox.appendChild(welcomeContainer);
 }
 
+
+messageBox.addEventListener('click', createGameUI);
+
+function createGameUI(e){
+  //looks for start button in messagebox
+  if (e.target.classList.contains('start-button')){
+    messageBox.remove();
+    loadRPS();
+  };
+}
+
+function loadRPS(){
+  let buttonImages = document.querySelectorAll('div.image-button');
+  buttonImages.forEach(button => {
+    if (button.style.display === "none") {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+}
+
+function createPlayerBox() {
+  
+}

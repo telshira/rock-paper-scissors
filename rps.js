@@ -133,6 +133,8 @@ const scoreHolder = document.querySelectorAll('div.scores-holder');
 const para = document.querySelectorAll('.scores-holder p');
 const plyPts = document.getElementById('player-points');
 const compPts = document.getElementById('computer-points');
+const playerScore = document.getElementById('player-score');
+const computerScore = document.getElementById('computer-score')
 
 function addScoreBrd(){
   para.forEach(p => {
@@ -148,6 +150,11 @@ function addScoreBrd(){
   plyPts.setAttribute('style', ptStyle);
   compPts.setAttribute('style', ptStyle);
   
+  playerScore.appendChild(para[0]);
+  playerScore.appendChild(playerPts);
+
+  computerScore.appendChild(para[1]);
+  computerScore.appendChild(compPts);
   scoreHolder.forEach(bg => {bg.style.backgroundColor = "rgb(8, 206, 241)";});
 }
 
@@ -208,10 +215,45 @@ imgButtons.forEach(button => button.addEventListener('click', (e) =>{
     playerOne.score++;
     playerPts.innerHTML = playerOne.score;
   } else {
-    topResult.textContent =`Please try again.`;
+    topResult.textContent =`Sorry! You lose!`;
     bottomResult.innerHTML = playerSelection[0].toUpperCase() + playerSelection.slice(1) + ' loses against ' + computerSelection[0].toUpperCase() + computerSelection.slice(1);
     playerTwo.score++;
     compPts.innerHTML = playerTwo.score;
   }
+  console.log(playerOne.score, playerTwo.score);
+  if(playerOne.score === 5 || playerTwo.score === 5) {
+    toggleGameOverModal();
+  }
 }), false);
 
+const openDialog = document.getElementById('gameOver');
+
+function toggleGameOverModal(){
+  if (openDialog.style.visibility === "hidden") {
+    openDialog.style.visibility = "visible";
+    openDialog.style.opacity = "1";
+  } else {
+    openDialog.style.visibility = "hidden";
+    openDialog.style.visibility = "0";
+  }
+}
+
+const playAgain = document.getElementById('yes-button');
+const notAgain = document.getElementById('no-button');
+const closeDialog = document.querySelectorAll('button');
+
+function closeModal(e) {
+  if (e.target.id === "yes-button"){
+    toggleGameOverModal();
+    playerOne.score = 0;
+    playerTwo.score = 0;
+    playerCont.remove();
+    computerCont.remove();
+    playerScore.remove();
+    computerScore.remove();
+  } else {
+    toggleGameOverModal ();
+  }
+}
+
+closeDialog.forEach(button => button.addEventListener('click', closeModal));

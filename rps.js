@@ -89,16 +89,12 @@ function createGameUI(e){
     while (messageBox.firstChild) {
       messageBox.removeChild(messageBox.firstChild);
     };
-    loadRPS();
-    createPlayerBox();
-    createComputerBox();
-    addScoreBrd();
-    gsMessageBox();
+    gameUI();
   };
 }
 
+const buttonImages = document.querySelectorAll('div.image-button');
 function loadRPS(){
-  let buttonImages = document.querySelectorAll('div.image-button');
   buttonImages.forEach(button => {
     if (button.style.display === "none") {
       button.style.display = "block";
@@ -158,6 +154,7 @@ function addScoreBrd(){
 //Create game start message box
 function gsMessageBox(){
   let message = document.createElement('div');
+  message.id = "message";
   let messageTextOne = document.createElement('h1');
   let messageTextTwo = document.createElement('p');
   messageTextOne.appendChild(document.createTextNode("Click the icons below to start!"));
@@ -166,6 +163,55 @@ function gsMessageBox(){
   message.appendChild(messageTextTwo);
   message.setAttribute('style', 'text-align:center');
   messageBox.appendChild(message);
-  console.log(messageBox);
+  // console.log(messageBox);
 }
+
+function gameUI() {
+  loadRPS();
+  createPlayerBox();
+  createComputerBox();
+  addScoreBrd();
+  gsMessageBox();
+}
+
+/* Game logic
+
+Create the possible choices a computer can pick and randomly select one of the choices */
+
+function getComputerChoice() {
+  const choices = ['rock', 'paper', 'scissors'];
+  return choices[Math.floor(Math.random()* choices.length)];
+}
+
+// Gets playerchoice when rps icons is clicked
+function getPlayerChoice(e) {
+  return `${e.target.getAttribute('id')}`;
+}
+
+imgButtons = document.querySelectorAll('.image-button img');
+imgButtons.forEach(button => button.addEventListener('click', (e) =>{
+  let playerSelection = getPlayerChoice(e);
+  let computerSelection = getComputerChoice();
+  let topResult = document.getElementById('message').firstChild;
+  let bottomResult = document.getElementById('message').lastChild;
+  console.log(playerSelection,computerSelection);
+  if (playerSelection === computerSelection) {
+    topResult.textContent = "It's a tie!";
+    bottomResult.textContent = "Please select again!";
+    console.log(topResult);
+  } else if (
+    playerSelection === 'rock' && computerSelection === 'scissors' ||
+    playerSelection === 'paper' && computerSelection === 'rock' ||
+    playerSelection === 'scissors' && computerSelection === "paper") {
+    topResult.textContent = "Congrats! You Won!";
+    bottomResult.innerHTML = playerSelection[0].toUpperCase() + playerSelection.slice(1) + ' beats ' + computerSelection[0].toUpperCase() + computerSelection.slice(1);
+    playerOne.score++;
+    playerPts.innerHTML = playerOne.score;
+  } else {
+    topResult.textContent =`Please try again.`;
+    bottomResult.innerHTML = playerSelection[0].toUpperCase() + playerSelection.slice(1) + ' loses against ' + computerSelection[0].toUpperCase() + computerSelection.slice(1);
+    playerTwo.score++;
+    compPts.innerHTML = playerTwo.score;
+  }
+}), false);
 

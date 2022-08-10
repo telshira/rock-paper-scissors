@@ -86,10 +86,14 @@ messageBox.addEventListener('click', createGameUI);
 function createGameUI(e){
   //looks for start button in messagebox
   if (e.target.classList.contains('start-button')){
-    messageBox.remove();
+    while (messageBox.firstChild) {
+      messageBox.removeChild(messageBox.firstChild);
+    };
     loadRPS();
     createPlayerBox();
     createComputerBox();
+    addScoreBrd();
+    gsMessageBox();
   };
 }
 
@@ -113,6 +117,7 @@ function createPlayerBox() {
   playerName.setAttribute('style', 'color: goldenrod; align-items: center; font-family: "Luckiest Guy"; font-size: 1.5vw; padding: 5px 0; marginBottom: 10px');
   playerCont.appendChild(playerName);
   playerCont.appendChild(playerPort);
+  playerCont.style.backgroundColor = "rgb(255, 241, 160)";
 }
 
 function createComputerBox() {
@@ -124,4 +129,43 @@ function createComputerBox() {
   computerName.setAttribute('style', 'color: goldenrod; align-items: center; font-family: "Luckiest Guy"; font-size: 1.5vw; padding: 5px 0; marginBottom: 10px');
   computerCont.appendChild(computerName);
   computerCont.appendChild(computerPort);
+  computerCont.style.backgroundColor = "rgb(255, 241, 160)";
 }
+
+//Create scoreboard
+const scoreHolder = document.querySelectorAll('div.scores-holder');
+const para = document.querySelectorAll('.scores-holder p');
+const plyPts = document.getElementById('player-points');
+const compPts = document.getElementById('computer-points');
+
+function addScoreBrd(){
+  para.forEach(p => {
+    p.appendChild(document.createTextNode('Current Score:'));
+    p.setAttribute('style', 'font-family: "Luckiest Guy"; font-size:1.5vw');
+    p.style.marginBlockStart = '.3em';
+    p.style.marginBlockEnd= "1.5em";
+  });
+  plyPts.appendChild(document.createTextNode(playerOne.score));
+  compPts.appendChild(document.createTextNode(playerTwo.score));
+  let ptStyle = 'font-weight: bolder; font-size: 5vw; color: white; flex: 1; padding: 0; margin: 0';
+
+  plyPts.setAttribute('style', ptStyle);
+  compPts.setAttribute('style', ptStyle);
+  
+  scoreHolder.forEach(bg => {bg.style.backgroundColor = "rgb(8, 206, 241)";});
+}
+
+//Create game start message box
+function gsMessageBox(){
+  let message = document.createElement('div');
+  let messageTextOne = document.createElement('h1');
+  let messageTextTwo = document.createElement('p');
+  messageTextOne.appendChild(document.createTextNode("Click the icons below to start!"));
+  messageTextTwo.appendChild(document.createTextNode("First one to reach a score for 5 wins!"));
+  message.appendChild(messageTextOne);
+  message.appendChild(messageTextTwo);
+  message.setAttribute('style', 'text-align:center');
+  messageBox.appendChild(message);
+  console.log(messageBox);
+}
+

@@ -7,7 +7,6 @@ body {
   height: 100vh;
   width: auto;
   background-color: rgb(252, 252, 252);
-  border: 1px solid blue;
   font-family: 'Poppins', 'Times New Roman', Times, serif;
   padding: 0 5%;
 }
@@ -17,7 +16,6 @@ header{
   flex-direction: row;
   justify-content: space-between;
   height: 30vh;
-  border: 1px solid blue;
 }
 
 .main-logo-container{
@@ -35,8 +33,6 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 40px;
-  border: 1px solid blue;
   width: 30%;
 }
 
@@ -44,7 +40,6 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid blue;
   height: auto;
   width: 50%;
 }
@@ -52,10 +47,12 @@ img {
 .portraits{
   height: auto;
   width: 70%;
-  border: 1px solid blue;
 }
 
 .scores-holder{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: auto;
   width: 50%;
 }
@@ -66,7 +63,6 @@ img {
   align-items: center;
   height: 40vh;
   padding: 0 10%;
-  border: 1px solid blue;
   gap: 50px;
 }
 
@@ -75,7 +71,6 @@ img {
   gap: 10px;
   margin: 0px;
   padding: 0px;
-  border: 1px solid red;
   width: 50%;
   justify-content: center;
 }
@@ -97,7 +92,6 @@ input[type='submit']{
   display: flex;
   width: 20%;
   border-radius: 50%;
-  border: 1px solid blue;
 }
 
 .player-options{
@@ -106,7 +100,6 @@ input[type='submit']{
   justify-content: center;
   align-items: center;
   gap: 100px;
-  border: 1px solid blue;
   height: 30vh;
 }
 
@@ -116,7 +109,6 @@ input[type='submit']{
   justify-content: center;
   width: 20%;
   border-radius: 50%;
-  border: 1px solid blue;
   height: 80%;
 }
 

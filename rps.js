@@ -2,11 +2,11 @@ const submit = document.querySelector('input[type="submit"]');
 const inputs = document.querySelectorAll('input');
 const nameInput = document.querySelector(`input[type='text']`);
 const messageBox = document.getElementById('message-box');
-
+const form = document.getElementById("name-input");
 const playerOne = {username: '', score: 0};
 const playerTwo = {username: 'Computer', score: 0};
 
-submit.addEventListener('click', loadIntro);
+form.addEventListener('submit', loadIntro, false);
 
 function getName(){
   let name = nameInput.value;
@@ -28,13 +28,10 @@ function getName(){
 //load welcome screen once we submit name
 function loadIntro(e) {
   e.preventDefault();
-  if (!playerOne.username){ 
-    getName();
-  } else{
+  getName();
+  if (playerOne.username){
     // removes inputs once name is received
-    inputs.forEach((input) => {
-        input.remove();
-      });
+    form.style.display = "none";
     if (playerOne.username.length > 13){
       playerOne.username = playerOne.username.slice(0, 13);
     }
@@ -94,7 +91,8 @@ function createGameUI(e){
 }
 
 const buttonImages = document.querySelectorAll('div.image-button');
-function loadRPS(){
+
+function toggleRPS(){
   buttonImages.forEach(button => {
     if (button.style.display === "none") {
       button.style.display = "block";
@@ -174,7 +172,7 @@ function gsMessageBox(){
 }
 
 function gameUI() {
-  loadRPS();
+  toggleRPS();
   createPlayerBox();
   createComputerBox();
   addScoreBrd();
@@ -196,7 +194,9 @@ function getPlayerChoice(e) {
 }
 
 imgButtons = document.querySelectorAll('.image-button img');
-imgButtons.forEach(button => button.addEventListener('click', (e) =>{
+imgButtons.forEach(button => button.addEventListener('click', playGame, false));
+
+function playGame(e){
   let playerSelection = getPlayerChoice(e);
   let computerSelection = getComputerChoice();
   let topResult = document.getElementById('message').firstChild;
@@ -224,7 +224,7 @@ imgButtons.forEach(button => button.addEventListener('click', (e) =>{
   if(playerOne.score === 5 || playerTwo.score === 5) {
     toggleGameOverModal();
   }
-}), false);
+}
 
 const openDialog = document.getElementById('gameOver');
 
@@ -244,15 +244,10 @@ const closeDialog = document.querySelectorAll('button');
 
 function closeModal(e) {
   if (e.target.id === "yes-button"){
+    location.href = "https://telshira.github.io/rock-paper-scissors/";
+  } else if (e.target.id === "no-button") {
     toggleGameOverModal();
-    playerOne.score = 0;
-    playerTwo.score = 0;
-    playerCont.remove();
-    computerCont.remove();
-    playerScore.remove();
-    computerScore.remove();
-  } else {
-    toggleGameOverModal ();
+    imgButtons.forEach(button => button.removeEventListener('click', playGame, false));
   }
 }
 

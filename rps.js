@@ -168,7 +168,6 @@ function gsMessageBox(){
   message.appendChild(messageTextTwo);
   message.setAttribute('style', 'text-align:center');
   messageBox.appendChild(message);
-  // console.log(messageBox);
 }
 
 function gameUI() {
@@ -179,10 +178,7 @@ function gameUI() {
   gsMessageBox();
 }
 
-/* Game logic
-
-Create the possible choices a computer can pick and randomly select one of the choices */
-
+// Create the possible choices a computer can pick and randomly select one of the choices 
 function getComputerChoice() {
   const choices = ['rock', 'paper', 'scissors'];
   return choices[Math.floor(Math.random()* choices.length)];
@@ -195,6 +191,8 @@ function getPlayerChoice(e) {
 
 imgButtons = document.querySelectorAll('.image-button img');
 imgButtons.forEach(button => button.addEventListener('click', playGame, false));
+const result = document.getElementById('result');
+result.setAttribute('style', 'font-family: "Luckiest Guy"; font-size:2.5vw; color:palevioletred');
 
 function playGame(e){
   let playerSelection = getPlayerChoice(e);
@@ -204,7 +202,7 @@ function playGame(e){
   console.log(playerSelection,computerSelection);
   if (playerSelection === computerSelection) {
     topResult.textContent = "It's a tie!";
-    bottomResult.textContent = "Please select again!";
+    bottomResult.innerHTML = playerSelection[0].toUpperCase() + playerSelection.slice(1) + ' vs ' + computerSelection[0].toUpperCase() + computerSelection.slice(1);
     console.log(topResult);
   } else if (
     playerSelection === 'rock' && computerSelection === 'scissors' ||
@@ -221,8 +219,13 @@ function playGame(e){
     compPts.innerHTML = playerTwo.score;
   }
   console.log(playerOne.score, playerTwo.score);
-  if(playerOne.score === 5 || playerTwo.score === 5) {
+  if(playerPts.innerHTML === "5" || computerPts.innerHTML === "5") {
     toggleGameOverModal();
+    if (playerOne.score > playerTwo.score) {
+      result.textContent = "You've reach 5. You win!"
+    } else {
+      result.textContent = "No luck today. You lose!";
+    }
   }
 }
 
@@ -234,19 +237,34 @@ function toggleGameOverModal(){
     openDialog.style.opacity = "1";
   } else {
     openDialog.style.visibility = "hidden";
-    openDialog.style.visibility = "0";
+    openDialog.style.opacity = "0";
   }
 }
 
 const playAgain = document.getElementById('yes-button');
 const notAgain = document.getElementById('no-button');
+const newGame = document.getElementById('new-button')
 const closeDialog = document.querySelectorAll('button');
 
 function closeModal(e) {
-  if (e.target.id === "yes-button"){
+  let topResult = document.getElementById('message').firstChild;
+  let bottomResult = document.getElementById('message').lastChild;
+  if (e.target.id === "new-button"){
     location.href = "https://telshira.github.io/rock-paper-scissors/";
+  } else if (e.target.id === "yes-button"){
+    toggleGameOverModal();
+    playerOne.score = 0;
+    playerTwo.score = 0;
+    playerPts.innerHTML = playerOne.score;
+    compPts.innerHTML = playerTwo.score;
+    topResult.textContent = "Click the icons below to start!";
+    bottomResult.textContent = "First one to reach a score for 5 wins!";
   } else if (e.target.id === "no-button") {
     toggleGameOverModal();
+    topResult.innerHTML = `Results: ${playerOne.score} wins vs ${playerTwo.score} losses`;
+    topResult.style.fontSize = "2.5vw";
+    topResult.style.color = "palevioletred";
+    bottomResult.textContent = "";
     imgButtons.forEach(button => button.removeEventListener('click', playGame, false));
   }
 }

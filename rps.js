@@ -162,6 +162,8 @@ function gsMessageBox(){
   message.id = "message";
   let messageTextOne = document.createElement('h1');
   let messageTextTwo = document.createElement('p');
+  messageTextOne.setAttribute('style', 'font-size: 2.5vw; font-weight: 900')
+  messageTextTwo.setAttribute('style', 'font-size: 1.5vw; font-weigth: 500')
   messageTextOne.appendChild(document.createTextNode("Click the icons below to start!"));
   messageTextTwo.appendChild(document.createTextNode("First one to reach a score for 5 wins!"));
   message.appendChild(messageTextOne);
@@ -195,6 +197,8 @@ const result = document.getElementById('result');
 result.setAttribute('style', 'font-family: "Luckiest Guy"; font-size:2.5vw; color:palevioletred');
 
 function playGame(e){
+  e.stopPropagation();
+  e.preventDefault();
   let playerSelection = getPlayerChoice(e);
   let computerSelection = getComputerChoice();
   let topResult = document.getElementById('message').firstChild;
@@ -219,7 +223,7 @@ function playGame(e){
     compPts.innerHTML = playerTwo.score;
   }
   console.log(playerOne.score, playerTwo.score);
-  if(playerPts.innerHTML === "5" || computerPts.innerHTML === "5") {
+  if(playerPts.innerHTML === "5" || compPts.innerHTML === "5") {
     toggleGameOverModal();
     if (playerOne.score > playerTwo.score) {
       result.textContent = "You've reach 5. You win!"
@@ -229,6 +233,7 @@ function playGame(e){
   }
 }
 
+//Load up game over dialog box
 const openDialog = document.getElementById('gameOver');
 
 function toggleGameOverModal(){

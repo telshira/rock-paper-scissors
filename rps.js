@@ -192,7 +192,6 @@ function createChoiceBox() {
   midContent.style.marginTop= "2%";
 }
 
-
 function gameUI() {
   toggleRPS();
   createPlayerBox();
@@ -210,15 +209,14 @@ function getComputerChoice() {
   const compSelectImg = document.getElementById('compSelectImg');
   if (choice === "paper"){
     compSelectImg.src = "./Images/paper.png";
-    return choice;
   } else if(choice === "scissors"){
     compSelectImg.src = "./Images/scissors.png";
-    return choice;
   } else if (choice === "rock") {
     compSelectImg.src = "./Images/rock.png";
-    return choice;
   }
-  
+ return choice;  
+    return choice;
+ return choice;  
 }
 
 // Gets playerchoice when rps icons is clicked
@@ -227,7 +225,6 @@ function getPlayerChoice(e) {
   let choice = `${e.target.getAttribute('id')}`
   if (e.target.id === "paper") {
     playerSelectImg.src = "./Images/paper.png";
-    return choice;
   } else if (e.target.id === "scissors"){
     playerSelectImg.src = "./Images/scissors.png";
   } else if (e.target.id === "rock"){
@@ -236,7 +233,7 @@ function getPlayerChoice(e) {
   return choice;
 }
 
-imgButtons = document.querySelectorAll('.image-button img');
+const imgButtons = document.querySelectorAll('.image-button img');
 imgButtons.forEach(button => button.addEventListener('click', playGame, false));
 const result = document.getElementById('result');
 result.setAttribute('style', 'font-family: "Luckiest Guy"; font-size:2.5vw; color:palevioletred');
@@ -268,7 +265,8 @@ function playGame(e){
   }
   
   if(playerPts.innerHTML === "5" || compPts.innerHTML === "5") {
-    toggleGameOverModal();
+    openDialog.style.visibility = "visible";
+    openDialog.style.opacity = "1";;
     if (playerOne.score > playerTwo.score) {
       result.textContent = "You've reach 5. You win!"
     } else {

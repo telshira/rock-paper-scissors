@@ -217,8 +217,14 @@ function getComputerChoice() {
   return choice;
 }
 
+let isClickable = true;
 // Gets playerchoice when rps icons is clicked
 function getPlayerChoice(e) {
+  if(!isClickable) return;
+  isClickable = false;
+  setTimeout(function() {
+    isClickable = true;
+  }, 500);
   const playerSelectImg = document.getElementById('playerSelectImg');
   let choice = `${e.target.getAttribute('id')}`
   if (e.target.id === "paper") {

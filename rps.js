@@ -25,6 +25,7 @@ function getName(){
   playerOne.username = userName;
 }
 
+const mainNameCont = document.querySelectorAll('div.main-name-containers');
 //load welcome screen once we submit name
 function loadIntro(e) {
   e.preventDefault();
@@ -153,7 +154,7 @@ function addScoreBrd(){
 
   computerScore.appendChild(para[1]);
   computerScore.appendChild(compPts);
-  scoreHolder.forEach(bg => {bg.style.backgroundColor = "rgb(8, 206, 241)";});
+  scoreHolder.forEach(bg => {bg.style.backgroundColor = "rgb(8, 206, 241)"});
 }
 
 //Create game start message box
@@ -164,6 +165,7 @@ function gsMessageBox(){
   let messageTextTwo = document.createElement('p');
   messageTextOne.setAttribute('style', 'font-size: 2.5vw; font-weight: 900')
   messageTextTwo.setAttribute('style', 'font-size: 1.5vw; font-weigth: 500')
+  messageTextOne.style.textShadow = ".3vw .3vw rgb(26, 25, 25)"
   messageTextOne.appendChild(document.createTextNode("Click the icons below to start!"));
   messageTextTwo.appendChild(document.createTextNode("First one to reach a score for 5 wins!"));
   message.appendChild(messageTextOne);
@@ -172,23 +174,66 @@ function gsMessageBox(){
   messageBox.appendChild(message);
 }
 
+const midContent = document.querySelector('div.midcontent-container');
+const playerChoice = document.querySelector('.player.choice-box');
+const compChoice = document.querySelector('.computer.choice-box');
+
+function createChoiceBox() {
+  const playerSelectImgBox = document.createElement('img');
+  playerSelectImgBox.id = "playerSelectImg";
+  playerSelectImgBox.src = "./Images/rock.png";
+  const compSelectImgBox = document.createElement('img');
+  compSelectImgBox.id = "compSelectImg";
+  compSelectImgBox.src = "./Images/rock.png";
+  
+  playerChoice.appendChild(playerSelectImgBox);
+  compChoice.appendChild(compSelectImgBox);
+  midContent.style.backgroundColor = "lightpink";
+  midContent.style.marginTop= "2%";
+}
+
+
 function gameUI() {
   toggleRPS();
   createPlayerBox();
   createComputerBox();
   addScoreBrd();
   gsMessageBox();
+  createChoiceBox();
+  mainNameCont.forEach(cont => cont.setAttribute("style", 'visibility: visible; opacity: 1'));
 }
 
 // Create the possible choices a computer can pick and randomly select one of the choices 
 function getComputerChoice() {
   const choices = ['rock', 'paper', 'scissors'];
-  return choices[Math.floor(Math.random()* choices.length)];
+  let choice = choices[Math.floor(Math.random()* choices.length)];
+  const compSelectImg = document.getElementById('compSelectImg');
+  if (choice === "paper"){
+    compSelectImg.src = "./Images/paper.png";
+    return choice;
+  } else if(choice === "scissors"){
+    compSelectImg.src = "./Images/scissors.png";
+    return choice;
+  } else if (choice === "rock") {
+    compSelectImg.src = "./Images/rock.png";
+    return choice;
+  }
+  
 }
 
 // Gets playerchoice when rps icons is clicked
 function getPlayerChoice(e) {
-  return `${e.target.getAttribute('id')}`;
+  const playerSelectImg = document.getElementById('playerSelectImg');
+  let choice = `${e.target.getAttribute('id')}`
+  if (e.target.id === "paper") {
+    playerSelectImg.src = "./Images/paper.png";
+    return choice;
+  } else if (e.target.id === "scissors"){
+    playerSelectImg.src = "./Images/scissors.png";
+  } else if (e.target.id === "rock"){
+    playerSelectImg.src = "./Images/rock.png";
+  }
+  return choice;
 }
 
 imgButtons = document.querySelectorAll('.image-button img');
@@ -203,11 +248,10 @@ function playGame(e){
   let computerSelection = getComputerChoice();
   let topResult = document.getElementById('message').firstChild;
   let bottomResult = document.getElementById('message').lastChild;
-  console.log(playerSelection,computerSelection);
+  
   if (playerSelection === computerSelection) {
     topResult.textContent = "It's a tie!";
     bottomResult.innerHTML = playerSelection[0].toUpperCase() + playerSelection.slice(1) + ' vs ' + computerSelection[0].toUpperCase() + computerSelection.slice(1);
-    console.log(topResult);
   } else if (
     playerSelection === 'rock' && computerSelection === 'scissors' ||
     playerSelection === 'paper' && computerSelection === 'rock' ||
@@ -222,7 +266,7 @@ function playGame(e){
     playerTwo.score++;
     compPts.innerHTML = playerTwo.score;
   }
-  console.log(playerOne.score, playerTwo.score);
+  
   if(playerPts.innerHTML === "5" || compPts.innerHTML === "5") {
     toggleGameOverModal();
     if (playerOne.score > playerTwo.score) {
@@ -269,6 +313,7 @@ function closeModal(e) {
     topResult.innerHTML = `Results: ${playerOne.score} wins vs ${playerTwo.score} losses`;
     topResult.style.fontSize = "2.5vw";
     topResult.style.color = "palevioletred";
+    midContent.style.backgroundColor = "rgb(8, 206, 241)";
     bottomResult.textContent = "";
     imgButtons.forEach(button => button.removeEventListener('click', playGame, false));
   }

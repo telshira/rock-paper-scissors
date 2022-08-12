@@ -214,9 +214,7 @@ function getComputerChoice() {
   } else if (choice === "rock") {
     compSelectImg.src = "./Images/rock.png";
   }
- return choice;  
-    return choice;
- return choice;  
+  return choice;
 }
 
 // Gets playerchoice when rps icons is clicked
